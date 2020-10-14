@@ -191,6 +191,6 @@ Some symbols may have been adapted from the original paper(s) to conform with Ma
 Notes done here relate to the following papers:
 
 - Type checking a multithreaded functional language with session types
-  (*Vasco T. Vasconcelos, Simon J. Gay b, António Ravara*)
+  (*Vasco T. Vasconcelos, Simon J. Gay, António Ravara*)
 
 ---
