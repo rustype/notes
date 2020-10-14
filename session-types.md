@@ -9,14 +9,14 @@
 
 The session type from the server's point of view is:
 
-```ml
+```
 S = ?Int.?Int.!Int.End
 ```
 
 Considering that the client communicates with the server through a channel `u`,
 in ML-style the session may look like:
 
-```ml
+```
 server u =
     let x = receive u in
     let y = receive u in
@@ -25,13 +25,13 @@ server u =
 
 We can write the session type for the client by interchanging `?` and `!`.
 
-```ml
+```
 C = !Int.!Int.?Int.End
 ```
 
 A concrete implementation may look like:
 
-```ml
+```
 client u =
     send 2 on u
     send 3 on u
@@ -56,14 +56,14 @@ To this end, we use:
 
 The server session type now looks like:
 
-```ml
+```
 S = &< add: ?Int.?Int.!Int.End
      , neg: ?Int.!Int.End >
 ```
 
 To implement the server we introduce the `case` construct:
 
-```ml
+```
 server u =
     case u of {
         add => send (receive u) + (receive u) on u
@@ -73,7 +73,7 @@ server u =
 
 Similarly, in the case of the client the session type looks like:
 
-```ml
+```
 C = +*< add: !Int.!Int.?Int.End
       , neg: !Int.?Int.End >
 ```
@@ -81,7 +81,7 @@ C = +*< add: !Int.!Int.?Int.End
 To implement the client, the choice is implemented by two functions,
 each referring to the choice made by the client.
 
-```ml
+```
 addClient u =
     select add on u
     send 2 on u
@@ -89,7 +89,7 @@ addClient u =
     let x = receive u in { ... }
 ```
 
-```ml
+```
 negClient u =
     select neg on u
     send 7 on u
@@ -105,7 +105,7 @@ This operation can now fail, since the `Real` can be negative.
 To model the `sqrt` operation we make use of the `choice` (`+*`) operator,
 the new server type is now:
 
-```ml
+```
 S = &< add: ?Int.?Int.!Int.End
      , neg: ?Int.!Int.End
      , sqrt: ?Real.+*<ok: !Real.End, error: End>
@@ -114,7 +114,7 @@ S = &< add: ?Int.?Int.!Int.End
 
 As well as the client:
 
-```ml
+```
 C = +*< add: !Int.!Int.?Int.End
       , neg: !Int.?Int.End
       , sqrt: !Real.&<ok: ?Real.End, error: End>
@@ -128,7 +128,7 @@ To do so, the type must be defined recursively, we also include a `quit` command
 
 The new session type now replaces the `End` with `S`.
 
-```ml
+```
 S = &< add: ?Int.?Int.!Int.S
      , neg: ?Int.!Int.S
      , sqrt: ?Real.+*<ok: !Real.S, error: S>
@@ -148,7 +148,7 @@ however, for brevity the function signature is abbreviated to `(T -> T')`.
 
 In our ML-like language we can describe the server as follows:
 
-```ml
+```
 server :: (c: &< ... >; Chan c -> (); c : End)
 server u =
     case u of {
@@ -163,7 +163,7 @@ An example would be a `eval` function:
 
 Whose server-side session type would look like:
 
-```ml
+```
 eval: ?(Int -> Bool).?Int.!Bool.End
 ```
 
@@ -175,7 +175,7 @@ eval => send (receive u)(receive u) on u
 
 As for the client a sample implementation would be:
 
-```ml
+```
 primeClient :: (c: +*<eval: ...>; Chan c -> (); c: End)
 primeClient u =
     select eval on u
