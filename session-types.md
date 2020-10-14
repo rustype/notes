@@ -184,6 +184,125 @@ primeClient u =
     let x = receive u in { ... }
 ```
 
+## Establishing a Connection
+
+To allow client and server to communicate through a shared channel a client will use `request v` and a server `accept v`.
+Both happen in different threads and both threads interact to create a new channel.
+The value `v` denotes the common knowledge between two threads, a shared name used to create the new channel.
+
+- `[S]` — denotes the type of the channel name.
+
+We can observe an example below:
+
+```
+server' :: [&<add: ..., neg: ..., ...>] -> ()
+server' x = let u = accept x in (server u; close u)
+
+negClient' :: [&<add: ..., neg: ..., ...>] -> ()
+negClient' x = let u = request x in (negClient u; close u)
+```
+
+## Sharing Names
+
+For a name to be known it must first be created and shared.
+To create a new potentially shared, name of type `[S]`, we write `new S`.
+To distribute the name to a second thread, we `fork` a new thread, in whose code the name occurs.
+
+```
+system :: ()
+system = let x = new &<add: ..., neg: ..., eval: ...> in
+         fork negClient x;
+         fork addClient x;
+         fork server x
+```
+
+## Sending Channels on Channels
+
+Imagine two cooperating clients which interact with the server.
+One starts an operation and the other receives the result.
+
+In a concrete fashion,
+one client establishes a connection, selecting the `neg` operation and sending the corresponding argument,
+the second client should now receive the result.
+The first client now needs to provide the second client with the channel to the server.
+To do so, both clients share a name type `?(?Int.End).End` and establish a connection with the purpose of transmitting the channel.
+
+```
+askNeg :: [< ... >] -> [S] -> ()
+askNeg x y =
+    let u = request x in
+        select neg on u; send 7 on u
+        let w = request y in
+            send u on w; close w
+
+getNeg :: [S] -> ()
+getNeg y =
+    let w = accept y in
+    let u = receive w in
+    let i = receive u in
+    close u; close w; { ... }
+```
+
+## Channel Aliasing
+
+As soon as the creation and naming of channels becomes separate,
+aliasing becomes possible.
+
+```
+sendSend u v = send 1 on u; send 2 on v
+```
+
+Considering the function above (`sendSend`) a possible use would be:
+
+```
+sendTwice :: c: !Int.!Int.End; Chan c -> (); c: End
+sendTwice w = sendSend w w
+```
+
+## Free Variables in Functions
+
+If we write:
+
+```
+sendFree v = send 1 on u; send 2 on v
+```
+
+Function `sendSend` becomes `λu.sendFree` we now must consider whether aliasing of `u` and `v` should be allowed.
+In the case that it is, we have the following types:
+
+```
+sendFree :: c: !Int.!Int.End; Chan c -> (); c: End
+sendSend :: c: !Int.!Int.End; Chan c -> Chan c -> (); c: End
+```
+
+In the case where aliasing is not allowed, we enforce two different channels `c` and `d`.
+
+```
+sendFree :: c: !Int.End, d: !Int.End; Chan c -> (); c: End, d: End
+sendSend :: c: !Int.End, d: !Int.End; Chan c -> Chan d -> (); c: End, d: End
+```
+
+## Polymorphism
+
+As previously seen, `sendFree` admits a share/not-share kind of polymorphism.
+It is also possible to enable channel and session polymorphism.
+
+A channel polymorphism can be seen below, where `S = !Int.!Int.End`,
+`sendTwice` must be typed once with channel `c` and another with channel `d`:
+
+```
+sendTwiceSendTwice :: c: S, d: S; Chan c → Chan d → (); c: End, d: End
+sendTwiceSendTwice x y = sendTwice x; sendTwice y
+```
+
+For session polymorphism,
+where `sendTwice` must be typed once with `c: !Int.!Int.!Int.!Int.End` and another with `c: !Int.!Int.End`:
+
+```
+sendQuad :: c : !Int.!Int.!Int.!Int.End; Chan c → Unit; c : End
+sendQuad x = sendTwice x; sendTwice x
+```
+
 ---
 
 Some symbols may have been adapted from the original paper(s) to conform with Markdown limitations.
