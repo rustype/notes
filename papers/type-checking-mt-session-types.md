@@ -1,6 +1,9 @@
 # Type checking a multithreaded functional language with session types
 
-Article written by (*Vasco T. Vasconcelos, Simon J. Gay b, António Ravara*)
+---
+
+**Authors** — Vasco T. Vasconcelos, Simon J. Gay b, António Ravara\
+**DOI** — 10.1016/j.tcs.2006.06.028
 
 ---
 
