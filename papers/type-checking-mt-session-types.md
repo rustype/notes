@@ -46,7 +46,7 @@ The declaration of typed names shows up during the reduction of `new` expression
 it can also be used at top-level to give a more realistic model of the example in
 [[session-types#sharing-names](../notes/session-types.md#sharing-names)].
 
-The configuration below arises during reduction of the thread `<system`.
+The configuration below arises during reduction of the thread `<system>`.
 Defining it in this way represents a situation in which the clients and server are defined as separate components which already shared the name `n`.
 
 ```
