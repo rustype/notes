@@ -24,4 +24,10 @@ Features as:
 - No imports, plugins or LaTeX like crap.
 - UTF-8 support as well as Math symbols.
 
+### How?
+
+- Build a DSL
+  - Maybe with Racket
+  - Maybe write the full parser
+
 ---
