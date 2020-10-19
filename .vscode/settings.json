@@ -18,6 +18,7 @@
   "vscodeMarkdownNotes.noteCompletionConvention": "noExtension",
   "ltex.workspaceFolderDictionary": {
     "en-US": [
+      "aliasable",
       "typestate",
       "typestates"
     ]
