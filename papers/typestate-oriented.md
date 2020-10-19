@@ -62,6 +62,52 @@ A proposal was to allow objects to transition between roles as a form of state t
 
 Another proposal, closely related to the object-oriented paradigm was the extension of class-based languages with explicit definitions of logical states, named modes, each with its own set of operations and corresponding implementations.
 
+## Typestate-Oriented Programming
+
+The paper describes the typestate-oriented programming paradigm,
+discussing several topics related to the programming language [Plaid](https://plaid-lang.org).
+
+### States
+
+Plaid abstracts states as a class-like mechanism,
+the difference resides in the fact that the state of an object my change during program execution.
+
+An example from the original paper is:
+
+```
+state File {
+    public final String filename;
+}
+
+state OpenFile extends File {
+    private CFilePtr filePtr;
+    public int read() { ... }
+    public void close() [OpenFile>>ClosedFile] { ... }
+}
+
+state ClosedFile extends File {
+    public void open() [ClosedFile>>OpenFile] { ... }
+}
+```
+
+### Tracking State Changes
+
+Methods can mutate an object state, if they do so, the `Before >> After` syntax is used.
+If a method does not change the state of an object the used syntax is simply `State` as it is an abbreviation for `State>>State`.
+
+This is clear in the methods `close` and `open` from the `OpenFile` and `ClosedFile`, respectively.
+
+### Aliasing and Permissions
+
+To deal with aliasing, Plaid adopted a permission-based system.
+
+The simpler models are `unique` and `immutable`.
+The former is unable to be aliased as indicated by the name,
+the latter allows unlimited aliasing, since it is immutable it never changes.
+
+There is also a `shared` aliasing state, which is much more complicated to keep track of.
+
+
 ---
 
 **Notes**
