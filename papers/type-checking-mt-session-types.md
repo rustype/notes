@@ -73,6 +73,39 @@ implying that `Chan c` may become `Chan y+`.
 Among data types we have channel-state annotated functional types `Z; T -> T; Z` and
 types for names `[S]` capable of establishing sessions of type `S`.
 
+## Related Work
+
+The paper refers to [Cyclone](https://cyclone.thelanguage.org/), which is now defunct.
+Its spiritual successor, [Rust](https://rust-lang.org) is highly relevant nowadays.
+
+The [Vault system](#1) adds annotations to C code which the compiler then statically checks,
+enforcing the protocol.
+
+[“Adoption and Focus”](#2) is a type system which tracks changes to the state of objects,
+handles aliasing and includes a form of function polymorphism.
+
+Type and effect systems can be used to prove properties of protocols.
+Furthermore, one can add correspondence assertions to session types, increasing the expressiveness of the system.
+It makes possible to specify and check that interactions between participants respect the protocol,
+and furthermore, the integrity and correctness of data propagation are verifiable.
+
+## Future Work
+
+The authors outline four main lines of future work:
+- *Recursive Session Types*
+- *Polymorphism*
+- *Web Services*
+- *ML-style references and assignments*
+
 ---
 
 For the full language syntax, refer to the [original paper](https://doi.org/10.1016/j.tcs.2006.06.028).
+
+**Interesting References**
+
+1. <a id="1"> Enforcing high-level protocols in low-level software
+    (*R. DeLine, M. Fähndrich*) </a>
+2. <a id="2"> Adoption and focus: practical linear types for imperative programming
+    (*M. Fähndrich, R. DeLine*) </a>
+
+---
