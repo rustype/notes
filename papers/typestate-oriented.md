@@ -47,13 +47,28 @@ The authors present a series of arguments supporting the language-based approach
     Adding typestate directly to the language enables better reuse of mechanism between the type system and the state-tracking system, yielding a simpler and more understandable design.
 3. Adding typestate to the language opens new opportunities for expressiveness.
 
+### Prior Language-Based Approaches
+
+The Actor model was one of the first programming models to treat states in a first class way.
+An Actor can accept one of several messages,
+in response it can perform the required tasks and then determine its next state.
+
+Smalltalk introduced the `become` method,
+which allows an object to exchange state and behavior with another object,
+this mechanism can be used to model state changes in a first class fashion.
+
+The concept of state is related to that of a role during interactions with an object.
+A proposal was to allow objects to transition between roles as a form of state transition.
+
+Another proposal, closely related to the object-oriented paradigm was the extension of class-based languages with explicit definitions of logical states, named modes, each with its own set of operations and corresponding implementations.
+
 ---
 
 **Notes**
 
 The authors provide an example of a file when discussing typestate,
 the file can be in two states `Open` and `Closed`.
-The authors elaborate that in a traditional context the file would have a pointer to the file descriptor in the open state, and in the closed state, there is no need for such.
+The authors elaborate that in a traditional context the file would have a pointer to the file descriptor in the `Open` state, and in the `Closed` state, there is no need for such.
 However, such approach raises an issue, how do we track memory usage as objects shrink and grow?
 Should we just give an object the biggest possible size, like Rust's `enum`?
 
