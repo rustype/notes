@@ -1,6 +1,8 @@
-# Todo
+# To Do
 
-- [ ] — Finish the multi-threaded session types type-checking paper
-  - [X] — Find out how channel aliasing is solved
-  - [ ] — Read section 4
-  - [ ] — Read section 5
+- [X] Finish the multi-threaded session types type-checking paper
+- [ ] Finish the Channels as Objects paper
+- [ ] Check Ada and Eiffel for contracts and other typestate-like mechanisms.
+- [ ] Check Microsoft's project Verona.
+- [ ] Check the [Unison](https://www.unisonweb.org/) language for which I forgot the name.
+- [ ] Check the Ballerina language and how it handles protocols.
