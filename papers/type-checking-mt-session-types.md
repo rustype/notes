@@ -3,7 +3,7 @@
 ---
 
 **Authors** — Vasco T. Vasconcelos, Simon J. Gay b, António Ravara\
-**DOI** — 10.1016/j.tcs.2006.06.028
+**DOI** — [10.1016/j.tcs.2006.06.028](https://doi.org/10.1016/j.tcs.2006.06.028)
 
 ---
 
