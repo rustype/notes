@@ -15,5 +15,11 @@
   "files.watcherExclude": {
     "**/node_modules": true
   },
-  "vscodeMarkdownNotes.noteCompletionConvention": "noExtension"
+  "vscodeMarkdownNotes.noteCompletionConvention": "noExtension",
+  "ltex.workspaceFolderDictionary": {
+    "en-US": [
+      "typestate",
+      "typestates"
+    ]
+  }
 }
