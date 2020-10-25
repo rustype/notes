@@ -22,5 +22,6 @@
       "typestate",
       "typestates"
     ]
-  }
+  },
+  "foam.edit.linkReferenceDefinitions": "withExtensions"
 }
