@@ -23,5 +23,5 @@
       "typestates"
     ]
   },
-  // "foam.edit.linkReferenceDefinitions": "withExtensions"
+  "foam.edit.linkReferenceDefinitions": "off"
 }
