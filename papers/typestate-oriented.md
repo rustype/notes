@@ -120,9 +120,9 @@ Should we just give an object the biggest possible size, like Rust's `enum`?
 
 **References**
 
-1. <a id="1">Typestates for Objects (*Robert Deline, Manuel Fahndrich*)</a>
-2. <a id="2">Effective Typestate Verification in the Presence of Aliasing (*Stephen J. Fink, Eran Yahav, Nurit Dor, G. Ramalingam, Emmanuel Geay*)</a>
-3. <a id="3">Collaborative Runtime Verification with Tracematches (*Eric Bodden, Laurie Hendren, Patrick Lam, Ondrej Lhotak, Nomair A. Naeem*)</a>
+1. <span id="1">Typestates for Objects (*Robert Deline, Manuel Fahndrich*)</span>
+2. <span id="2">Effective Typestate Verification in the Presence of Aliasing (*Stephen J. Fink, Eran Yahav, Nurit Dor, G. Ramalingam, Emmanuel Geay*)</span>
+3. <span id="3">Collaborative Runtime Verification with Tracematches (*Eric Bodden, Laurie Hendren, Patrick Lam, Ondrej Lhotak, Nomair A. Naeem*)</span>
 
 ---
 

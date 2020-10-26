@@ -48,6 +48,6 @@ A type and effect system makes it possible to statically describe intensional as
 
 **References**
 
-- <a id="1">Session types = intersection types + union types. (*Luca Padovani*)</a>
+- <span id="1">Session types = intersection types + union types. (*Luca Padovani*)</span>
 
 ---

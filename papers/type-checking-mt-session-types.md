@@ -103,9 +103,9 @@ For the full language syntax, refer to the [original paper](https://doi.org/10.1
 
 **Interesting References**
 
-1. <a id="1"> Enforcing high-level protocols in low-level software
-    (*R. DeLine, M. Fähndrich*) </a>
-2. <a id="2"> Adoption and focus: practical linear types for imperative programming
-    (*M. Fähndrich, R. DeLine*) </a>
+1. <span id="1"> Enforcing high-level protocols in low-level software
+    (*R. DeLine, M. Fähndrich*) </span>
+2. <span id="2"> Adoption and focus: practical linear types for imperative programming
+    (*M. Fähndrich, R. DeLine*) </span>
 
 ---

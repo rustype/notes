@@ -72,9 +72,9 @@ the latter checks client code conformance to method call sequences and behaviora
 
 **Interesting References**
 
-1. <a id="1">Regular types for active objects
-    (*Oscar Nierstrasz*)</a>
-2. <a id="2">Modular Session Types for Distributed Object-Oriented Programming
-    (*Simon Gay, Vasco T. Vasconcelos, António Ravara, Nils Gesbert & Alexandre Z. Caldeira*)</a>
+1. <span id="1">Regular types for active objects
+    (*Oscar Nierstrasz*)</span>
+2. <span id="2">Modular Session Types for Distributed Object-Oriented Programming
+    (*Simon Gay, Vasco T. Vasconcelos, António Ravara, Nils Gesbert & Alexandre Z. Caldeira*)</span>
 
 ---
