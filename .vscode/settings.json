@@ -3,7 +3,7 @@
   "editor.wrappingIndent": "indent",
   "editor.overviewRulerBorder": false,
   "editor.lineHeight": 20,
-  "workbench.colorTheme": "Arghkai (Filter Octagon)",
+  "workbench.colorTheme": "Gray Matter Dark",
   "[markdown]": {
     "editor.quickSuggestions": true
   },
