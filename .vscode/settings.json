@@ -15,7 +15,7 @@
   "files.watcherExclude": {
     "**/node_modules": true
   },
-  "vscodeMarkdownNotes.noteCompletionConvention": "noExtension",
+  "vscodeMarkdownNotes.noteCompletionConvention": "rawFilename",
   "ltex.workspaceFolderDictionary": {
     "en-US": [
       "aliasable",
@@ -23,5 +23,5 @@
       "typestates"
     ]
   },
-  "foam.edit.linkReferenceDefinitions": "withExtensions"
+  // "foam.edit.linkReferenceDefinitions": "withExtensions"
 }
