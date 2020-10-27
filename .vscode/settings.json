@@ -2,16 +2,18 @@
   "editor.minimap.enabled": false,
   "editor.wrappingIndent": "indent",
   "editor.overviewRulerBorder": false,
-  "editor.lineHeight": 20,
-  "workbench.colorTheme": "Gray Matter Dark",
+  "editor.lineHeight": 18,
+  "workbench.colorTheme": "Gray Matter Light",
   "[markdown]": {
-    "editor.quickSuggestions": true
+    "editor.quickSuggestions": true,
+    "editor.tabSize": 4,
+    "editor.insertSpaces": true,
   },
   "git.enableSmartCommit": true,
   // "git.postCommitCommand": "sync",
-  "files.exclude": {
-    "**/node_modules": true
-  },
+  // "files.exclude": {
+  //   "**/node_modules": true
+  // },
   "files.watcherExclude": {
     "**/node_modules": true
   },
@@ -24,5 +26,5 @@
       "typestates"
     ]
   },
-  "foam.edit.linkReferenceDefinitions": "withExtensions"
+  "foam.edit.linkReferenceDefinitions": "withoutExtensions"
 }
