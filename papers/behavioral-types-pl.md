@@ -165,7 +165,7 @@ The first challenge has been addressed in three different ways:
 - Defining a suitable monad for session communications
 
 Monads also prove to be useful when addressing the second challenge,
-the same way the `IO` monad allows the structuring of Haskell programs doing IO.OR ebay@reply5.ebay.com OR caixadirectaoperacoes@cgd.pt
+the same way the `IO` monad allows the structuring of Haskell programs doing IO.
 
 ### Effects for Session Type Checking
 
