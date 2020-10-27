@@ -183,6 +183,43 @@ enabling the values to be reused.
 To address this problem, the authors create a new arrow notation for linear types,
 enabling the type system to detect linear resources.
 
+### Monadic Approaches to Session Type Checking
+
+Support for session types in Haskell has been investigated by several existing works.
+When adding support for session interaction primitives in a lazy functional language special care is required,
+operations must be carried out in a predictable order.
+To do so, an appropriate monad must be defined,
+this approach also addresses the aliasing problem.
+
+The session interaction monad hides the channel from the programmer,
+preventing the creation of aliases that could grant non-linear access to the channel.
+
+*This section makes an interesting point when discussing this implementation,
+referring to using the compiler to generate the appropriate monadic API.
+Read [Toninho et al.](#monadic-integration) and [Deniélou et al.](#multirole)*
+
+## Singularity OS
+
+Briefly, Singulary OS is a prototype of a reliable operating system where isolated processes share the same address space, the *exchange heap*.
+
+In Singularity OS, channels are formed as pairs of related endpoints, the channel peers.
+A message is sent over a peer is received from the other peers.
+Communication is asynchronous and synchronization is made via handshake protocols.
+
+### Channel Contracts in Sing#
+
+Channel communication is ruled by channel contracts,
+these are verified at compile-time and describe messages, argument types and valid interactions as finite STMs.
+Channel contracts can be viewed as a syntactic variation of session types.
+
+Static analysis in Sing# aims at providing strong guarantees of the absence of errors deriving from communications and the usage of head-allocated objects.
+Regarding communication, code correctness relies on the assumption that the processes using the peer endpoints are able to deal with the message types.
+To this end, Sing# provides channel contracts describing the communication patterns that are permitted on a given endpoint.
+
+In Sing#, a contract is made of a finite set of message specifications and a finite set of states linked by transitions.
+The state of an endpoint is determined by the state of the associated contract, defining messages to be sent and received.
+Communication errors are ruled out by associating the two peers of a channel with complementary types, that is, describing complementary actions.
+
 ---
 
 **Notes**
@@ -193,8 +230,11 @@ enabling the type system to detect linear resources.
 **References**
 
 1. <span id="ml-effects"> Typechecking a multithreaded functional language with session types
-    (*Vasco T. Vasconcelos, Simon Gay, and António Ravara*) </span>
-
+    (*Vasco T. Vasconcelos, Simon Gay, António Ravara*) </span>
+2. <span id="monadic-integration"> Higher-order processes, functions, and sessions: A monadic integration
+    (*Bernardo Toninho, Luís Caires, Frank Pfenning*) </span>
+3. <span id="multirole"> Dynamic multirole session types
+    (*Pierre-Malo Deniélou, Nobuko Yoshida*) </span>
 ---
 
 
