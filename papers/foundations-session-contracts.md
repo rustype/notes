@@ -2,11 +2,9 @@
 
 ---
 
-**Authors** — Hans Hüttel, Ivan Lanese, Vasco T. Vasconcelos, Luís Caires, Marco Carbone, Pierre-malo Deniélou, Dimitris Mostrous, Luca Padovani, António Ravara, Emilio Tuosto, Hugo Torres Vieira, Gianluigi Zavattaro
-
-**DOI** — [10.1145/2873052](https://doi.org/10.1145/2873052)
-
----
+**Authors** — Hans Hüttel, Ivan Lanese, Vasco T. Vasconcelos, Luís Caires, Marco Carbone, Pierre-malo Deniélou, Dimitris Mostrous, Luca Padovani, António Ravara, Emilio Tuosto, Hugo Torres Vieira, Gianluigi Zavattaro\
+**DOI** — [10.1145/2873052](https://doi.org/10.1145/2873052)\
+**File** — [behavioral/session-types/2873052.pdf](https://github.com/rustype/bibliography/blob/main/behavioral/session-types/2873052.pdf)
 
 Work on behavioural appeared in the context of type systems which capture properties of computations in process calculi.
 Behavioural types are compositional in the sense that the type of a composite program depends on the types of its immediate constituents.
