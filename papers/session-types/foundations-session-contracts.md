@@ -35,8 +35,14 @@ and a language equipped with a static type system based on them can check at com
 ### Types and Effects
 
 A type and effect system makes it possible to statically describe intensional aspects of a computation alongside the extensional information that is captured by usual notions of type.
+Types describe what an expression will compute, while effects describe how an expression will compute.
 
+### Types for Nonuniform Objects
 
+In the context of OOP, class types as static interface types do not cope with the notion of nonuniform method availability: In an object, each of its methods can be enabled or disabled according to its internal state.
+
+Nonuniform objects are those that may dynamically change behavior,
+and a typing discipline for ensuring the absence of "message-not-understood" errors will need to take this dynamic behavior into consideration.
 
 ---
 
