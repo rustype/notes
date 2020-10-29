@@ -3,7 +3,7 @@
   "editor.wrappingIndent": "indent",
   "editor.overviewRulerBorder": false,
   "editor.lineHeight": 18,
-  "workbench.colorTheme": "Gray Matter Light",
+  "workbench.colorTheme": "Gray Matter Dark",
   "[markdown]": {
     "editor.quickSuggestions": true,
     "editor.tabSize": 4,
@@ -18,6 +18,12 @@
     "**/node_modules": true
   },
   "vscodeMarkdownNotes.noteCompletionConvention": "rawFilename",
+  "ltex.workspaceDisabledRules": {
+    "en-US": [
+      "EN_QUOTES",
+      "WHITESPACE_RULE"
+    ]
+  },
   "ltex.workspaceFolderDictionary": {
     "en-US": [
       "aliasable",
@@ -26,5 +32,9 @@
       "typestates"
     ]
   },
-  "foam.edit.linkReferenceDefinitions": "withoutExtensions"
+  "foam.edit.linkReferenceDefinitions": "withoutExtensions",
+  "foam.files.ignore": [
+    "/.vscode",
+    "/_layouts",
+  ]
 }

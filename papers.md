@@ -10,21 +10,23 @@
 
 ## To Read
 
-| Title | File                                                                                                                                                                                                                           | Link |
-| ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---- |
-|       | [behavioral/3019612.3019733.pdf                                                      ](https://github.com/rustype/bibliography/blob/main/behavioral/3019612.3019733.pdf                                                      ) |      |
-|       | [behavioral/RE_9788793519817.pdf                                                     ](https://github.com/rustype/bibliography/blob/main/behavioral/RE_9788793519817.pdf                                                     ) |      |
-|       | [behavioral/session-types/1-s2.0-S0167642317302186-main.pdf                          ](https://github.com/rustype/bibliography/blob/main/behavioral/session-types/1-s2.0-S0167642317302186-main.pdf                          ) |      |
-|       | [behavioral/session-types/Lagaillardie2020_Chapter_ImplementingMultipartySessionT.pdf](https://github.com/rustype/bibliography/blob/main/behavioral/session-types/Lagaillardie2020_Chapter_ImplementingMultipartySessionT.pdf) |      |
-|       | [behavioral/session-types/VDG20.pdf                                                  ](https://github.com/rustype/bibliography/blob/main/behavioral/session-types/VDG20.pdf                                                  ) |      |
-|       | [behavioral/typestate/10.1145_2629609.pdf                                            ](https://github.com/rustype/bibliography/blob/main/behavioral/typestate/10.1145_2629609.pdf                                            ) |      |
-|       | [behavioral/typestate/2009.08769.pdf                                                 ](https://github.com/rustype/bibliography/blob/main/behavioral/typestate/2009.08769.pdf                                                 ) |      |
-|       | [type-systems/TypeSystems.pdf                                                        ](https://github.com/rustype/bibliography/blob/main/type-systems/TypeSystems.pdf                                                        ) |      |
+| Title                                                                           | File                                                                                                                                                                                                                           | Link |
+| ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---- |
+| Behavioural Types: from Theory to Tools                                         | [behavioral/RE_9788793519817.pdf](https://github.com/rustype/bibliography/blob/main/behavioral/RE_9788793519817.pdf)                                                                                                           |      |
+| Typecheking protocols with Mungo and StMungo: A session type toolchain for Java | [behavioral/session-types/1-s2.0-S0167642317302186-main.pdf](https://github.com/rustype/bibliography/blob/main/behavioral/session-types/1-s2.0-S0167642317302186-main.pdf)                                                     |      |
+| Implementing Multiparty Session Types in Rust                                   | [behavioral/session-types/Lagaillardie2020_Chapter_ImplementingMultipartySessionT.pdf](https://github.com/rustype/bibliography/blob/main/behavioral/session-types/Lagaillardie2020_Chapter_ImplementingMultipartySessionT.pdf) |      |
+| Typechecking Java Protocols with [St]Mungo                                      | [behavioral/session-types/mungo/VDG20.pdf](https://github.com/rustype/bibliography/blob/main/behavioral/session-types/mungo/VDG20.pdf)                                                                                         |      |
+| Foundations of Typestate-Oriented Programming                                   | [behavioral/typestate/10.1145_2629609.pdf](https://github.com/rustype/bibliography/blob/main/behavioral/typestate/10.1145_2629609.pdf)                                                                                         |      |
+| Typestates to Automata and back: a tool                                         | [behavioral/typestate/2009.08769.pdf](https://github.com/rustype/bibliography/blob/main/behavioral/typestate/2009.08769.pdf)                                                                                                   |      |
+| Type Systems                                                                    | [type-systems/TypeSystems.pdf](https://github.com/rustype/bibliography/blob/main/type-systems/TypeSystems.pdf)                                                                                                                 |      |
+| A Revision of the Mool Language                                                 | [behavioral/session-types/mool/1604.06245.pdf](https://github.com/rustype/bibliography/blob/main/behavioral/session-types/mool/1604.06245.pdf)                                                                                 |      |
+| From Object-Oriented Code with Assertions to Behavioural Types                  | [behavioral/session-types/mool/3019612.3019733.pdf](https://github.com/rustype/bibliography/blob/main/behavioral/session-types/mool/3019612.3019733.pdf)                                                                       |      |
+| Concurrency by Default                                                          | [onward2009-concurrency.pdf](https://github.com/rustype/bibliography/blob/main/onward2009-concurrency.pdf)                                                                                                                     |      |
 
 [//begin]: # "Autogenerated link references for markdown compatibility"
-[type-checking-mt-session-types]: papers/type-checking-mt-session-types "Type checking a multithreaded functional language with session types"
-[channels-as-objects]: papers/channels-as-objects "Channels as Objects in Concurrent Object-Oriented Programming"
-[typestate-oriented]: papers/typestate-oriented "Typestate-Oriented Programming"
-[foundations-session-contracts]: papers/foundations-session-contracts "Foundations of Session Types and Behavioural Contracts"
+[type-checking-mt-session-types]: papers/session-types/type-checking-mt-session-types "Type checking a multithreaded functional language with session types"
+[channels-as-objects]: papers/session-types/channels-as-objects "Channels as Objects in Concurrent Object-Oriented Programming"
+[typestate-oriented]: papers/typestates/typestate-oriented "Typestate-Oriented Programming"
+[foundations-session-contracts]: papers/session-types/foundations-session-contracts "Foundations of Session Types and Behavioural Contracts"
 [behavioral-types-pl]: papers/behavioral-types-pl "Behavioral Types in Programming Languages"
 [//end]: # "Autogenerated link references"
