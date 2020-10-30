@@ -1,4 +1,6 @@
 source 'https://rubygems.org'
+
+gem "github-pages", "~> 209", group: :jekyll_plugins
 gem "jekyll", "3.9.0"
 gem "jekyll-theme-primer"
 gem "jekyll-optional-front-matter"

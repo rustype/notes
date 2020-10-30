@@ -1,7 +1,7 @@
 title: rustype/notes
 theme: jekyll-theme-primer
 
-baseurl: /foam-jekyll-template
+baseurl: /
 
 highlighter: rouge
 gist:
