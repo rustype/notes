@@ -1,5 +1,7 @@
 # rustype/notes
 
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Half-Life_lambda_logo.svg/1000px-Half-Life_lambda_logo.svg.png" style="display: block;margin-left: auto;margin-right: auto;width: 25%;">
+
 ## General
 
 - [[inbox]] — Loose notes
