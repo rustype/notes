@@ -2,6 +2,15 @@
 ---
 
 @import "{{ site.theme }}";
+@import url('https://rsms.me/inter/inter.css');
+html { font-family: 'Inter', sans-serif; }
+@supports (font-variation-settings: normal) {
+  html { font-family: 'Inter var', sans-serif; }
+}
+
+a {
+  color: #70b570;
+}
 
 .markdown-body {
   max-width: 800px;
@@ -22,12 +31,48 @@ input.task-list-item-checkbox {
   margin-right: 4px;
 }
 
+img[src*="demo"] {
+  border: 1px #eee solid;
+  -webkit-box-shadow: 4px 4px 16px 0px rgba(50, 50, 50, 0.1);
+  -moz-box-shadow: 4px 4px 16px 0px rgba(50, 50, 50, 0.1);
+  box-shadow: 4px 4px 16px 0px rgba(50, 50, 50, 0.1);
+}
+
+@media only screen and (min-width: 1170px) {
+  img[src*="demo"] {
+    max-width: 130%;
+    margin-left: -15%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+}
+
 h1,
 h2,
 h3,
 h4,
 h5,
 blockquote {
-  font-family: Constantia, "Lucida Bright", Lucidabright, "Lucida Serif", Lucida,
-    "DejaVu Serif", "Bitstream Vera Serif", "Liberation Serif", Georgia, serif;
+  font-family: Inter, sans-serif;
+}
+
+.wikilink:before {
+  content: "[[";
+  opacity: 0.5;
+}
+
+.wikilink:after {
+  content: "]]";
+  opacity: 0.5;
+}
+
+.github-only {
+  display: none;
+}
+
+.announcement {
+  background: #ede7ff;
+  padding: 4px 16px;
+  color: black;
+  border-radius: 4px;
 }
