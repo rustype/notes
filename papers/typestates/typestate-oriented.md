@@ -2,8 +2,10 @@
 
 ---
 
-**Authors** — Jonathan Aldrich, Joshua Sunshine, Darpan Saini, Zachary Sparks\
-**DOI** — [10.1145/1639950.1640073](https://doi.org/10.1145/1639950.1640073)\
+**Authors** — Jonathan Aldrich, Joshua Sunshine, Darpan Saini, Zachary Sparks
+
+**DOI** — [10.1145/1639950.1640073](https://doi.org/10.1145/1639950.1640073)
+
 **File** — [behavioral/typestate/onward2009-state.pdf](https://github.com/rustype/bibliography/blob/main/behavioral/typestate/onward2009-state.pdf)
 
 ---

@@ -2,8 +2,10 @@
 
 ---
 
-**Authors** — Davide Ancona, Viviana Bono, Mario Bravetti, Joana Campos, Giuseppe Castagna, Pierre-Malo Deniélou, Simon J. Gay, Nils Gesbert, Elena Giachino, Raymond Hu, Einar Broch Johnsen, Francisco Martins, Viviana Mascardi, Fabrizio Montesi, Rumyana Neykova, Nicholas Ng, Luca Padovani, Vasco T. Vasconcelos, Nobuko Yoshida\
-**DOI** — [10.1561/2500000031](https://doi.org/10.1561/2500000031)\
+**Authors** — Davide Ancona, Viviana Bono, Mario Bravetti, Joana Campos, Giuseppe Castagna, Pierre-Malo Deniélou, Simon J. Gay, Nils Gesbert, Elena Giachino, Raymond Hu, Einar Broch Johnsen, Francisco Martins, Viviana Mascardi, Fabrizio Montesi, Rumyana Neykova, Nicholas Ng, Luca Padovani, Vasco T. Vasconcelos, Nobuko Yoshida
+
+**DOI** — [10.1561/2500000031](https://doi.org/10.1561/2500000031)
+
 **File** — [biblio/behavioral/ancona2016.pdf](https://github.com/rustype/bibliography/blob/main/behavioral/ancona2016.pdf)
 
 ---

@@ -2,8 +2,10 @@
 
 ---
 
-**Authors** — Hans Hüttel, Ivan Lanese, Vasco T. Vasconcelos, Luís Caires, Marco Carbone, Pierre-malo Deniélou, Dimitris Mostrous, Luca Padovani, António Ravara, Emilio Tuosto, Hugo Torres Vieira, Gianluigi Zavattaro\
-**DOI** — [10.1145/2873052](https://doi.org/10.1145/2873052)\
+**Authors** — Hans Hüttel, Ivan Lanese, Vasco T. Vasconcelos, Luís Caires, Marco Carbone, Pierre-malo Deniélou, Dimitris Mostrous, Luca Padovani, António Ravara, Emilio Tuosto, Hugo Torres Vieira, Gianluigi Zavattaro
+
+**DOI** — [10.1145/2873052](https://doi.org/10.1145/2873052)
+
 **File** — [behavioral/session-types/2873052.pdf](https://github.com/rustype/bibliography/blob/main/behavioral/session-types/2873052.pdf)
 
 Work on behavioural appeared in the context of type systems which capture properties of computations in process calculi.
@@ -84,7 +86,23 @@ A binary session type describes a protocol as seen from the point of view of one
 A lot of what this section explains is present in [[session-types]].
 
 Session types may allow for messages to carry other session types,
-this phenomena is called delegation and is considered the norm in session type systems.
+this phenomenon is called delegation and is considered the norm in session type systems.
+
+### Binary Contracts
+
+Contracts take an approach that differs from session types by using algebra-like languages or labelled transition systems
+for describing abstractions of the communication behavior of programs.
+
+## Multiparty Sessions
+
+### Global and Local Types
+
+Multiparty sessions types provide for global descriptions of interactive behavior.
+Under this paradigm, a software architect prepares a global view of all the message exchanges that take place,
+instead of separately defining the behavior of each individual channel endpoint.
+
+The local behavior of each endpoint can be mechanically obtained from the global description by applying a projection operation.
+A global description is therefore a "formal blueprint" of how a communicating system should behave and it provided a concise specification of how messages flow within the system.
 
 ---
 

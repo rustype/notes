@@ -2,8 +2,10 @@
 
 ---
 
-**Authors** — Vasco T. Vasconcelos, Simon J. Gay b, António Ravara\
-**DOI** — [10.1016/j.tcs.2006.06.028](https://doi.org/10.1016/j.tcs.2006.06.028)\
+**Authors** — Vasco T. Vasconcelos, Simon J. Gay b, António Ravara
+
+**DOI** — [10.1016/j.tcs.2006.06.028](https://doi.org/10.1016/j.tcs.2006.06.028)
+
 **File** — [behavioral/session-types/10.1016_j.tcs.2006.06.028.pdf](https://github.com/rustype/bibliography/blob/main/behavioral/session-types/10.1016_j.tcs.2006.06.028.pdf)
 
 ---

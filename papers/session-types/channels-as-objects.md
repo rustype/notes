@@ -2,8 +2,10 @@
 
 ---
 
-**Authors** — Joana Campos, Vasco T. Vasconcelos\
-**DOI** — [10.4204/EPTCS.69.2](https://doi.org/10.4204/EPTCS.69.2)\
+**Authors** — Joana Campos, Vasco T. Vasconcelos
+
+**DOI** — [10.4204/EPTCS.69.2](https://doi.org/10.4204/EPTCS.69.2)
+
 **File** — [behavioral/session-types/1110.4157v1.pdf](https://github.com/rustype/bibliography/blob/main/behavioral/session-types/1110.4157v1.pdf)
 
 ---
