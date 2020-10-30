@@ -154,6 +154,22 @@ $$
 
 Each type rule is written as a number of *premise* judgements $\Gamma_i \vdash \Im_i$ above a horizontal line,
 with a single *conclusion* judgement $\Gamma \vdash \Im$ bellow the line.
+When all of the premises are satisfied, the conclusion must hold; the number of premises may be zero.
+Each rule has a name, which by convention, the first word is determined by the conclusion judgement.
+
+### Type Derivations
+
+A derivation in a given type system is a tree of judgements with leaves at the top and a root at the bottom,
+where each judgement is obtained from the ones immediately above it by some rule of the system.
+A fundamental requirement of type systems is that it must be possible to check whether or not a derivation is properly constructed.
+
+A valid judgement is one that can be obtained as the root of a derivation in a given type system.
+That is, a valid judgement is one that can be obtained by correctly applying the type rules.
+
+### Well Typing and Type Inference
+
+In a given type system, a term $M$ is well typed if for an environment $\Gamma$, if there is a type $A$ such that $\Gamma \vdash M : A$ is a valid judgement; that is, if the term M can be given some type.
+The discovery of a derivation (and hence of a type) for a term is called the type inference problem.
 
 ---
 
