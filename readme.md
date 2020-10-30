@@ -1,4 +1,4 @@
-# Main Hub
+# rustype/notes
 
 ## General
 
