@@ -18,13 +18,13 @@
     "**/node_modules": true
   },
   "vscodeMarkdownNotes.noteCompletionConvention": "rawFilename",
-  "ltex.workspaceDisabledRules": {
+  "ltex.disabledRules": {
     "en-US": [
       "EN_QUOTES",
       "WHITESPACE_RULE"
     ]
   },
-  "ltex.workspaceFolderDictionary": {
+  "ltex.dictionary": {
     "en-US": [
       "aliasable",
       "Choreographies",
@@ -34,7 +34,7 @@
   },
   "foam.edit.linkReferenceDefinitions": "withExtensions",
   "foam.files.ignore": [
-    "/.vscode",
-    "/_layouts",
+    ".vscode/*",
+    "_layouts/*",
   ]
 }

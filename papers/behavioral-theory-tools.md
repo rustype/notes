@@ -26,7 +26,7 @@ The specification language is appropriate for modeling concurrent processes that
 The syntax of the language is present in the original document.
 
 Hypha distinguishes between ephemeral input, written as $u?(x_1, \dots, x_n).P$,
-and persistent input, written as $^*u?(x_1, \dots, x_n)$;
+and persistent input, written as \\(^*u?(x_1, \dots, x_n)\\);
 
 In the case of ephemeral input, the process then waits for one message from $u$,
 the message is considered to be an $n$-tuple,
