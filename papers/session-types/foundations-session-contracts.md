@@ -8,6 +8,8 @@
 
 **File** — [behavioral/session-types/2873052.pdf](https://github.com/rustype/bibliography/blob/main/behavioral/session-types/2873052.pdf)
 
+---
+
 Work on behavioural appeared in the context of type systems which capture properties of computations in process calculi.
 Behavioural types are compositional in the sense that the type of a composite program depends on the types of its immediate constituents.
 
