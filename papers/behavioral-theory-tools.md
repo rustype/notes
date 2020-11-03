@@ -26,7 +26,7 @@ The specification language is appropriate for modeling concurrent processes that
 The syntax of the language is present in the original document.
 
 Hypha distinguishes between ephemeral input, written as $u?(x_1, \dots, x_n).P$,
-and persistent input, written as \\(^*u?(x_1, \dots, x_n)\\);
+and persistent input, written as $^*u?(x_1, \dots, x_n)$.
 
 In the case of ephemeral input, the process then waits for one message from $u$,
 the message is considered to be an $n$-tuple,
@@ -38,7 +38,7 @@ each received message spawns a new copy of $P$.
 Hypha also ensures that its programs are deadlock free, however, it is important to note that not every deadlock free program is a valid Hypha program.
 
 A process is deadlock free if every residual of P that cannot reduce further does not contain pending communications.
-- **Definition** — $P$ is *deadlock free* if whenever $P \to^*~\mathtt{new}~c_1,\dots,c_n~\mathtt{in}~Q~\nrightarrow$ we have $\neg \mathsf{wait}(a, Q)$ for every $a$.
+- **Definition** — $P$ is *deadlock free* if whenever $P~\to^*~\mathtt{new}~c_1,\dots,c_n~\mathtt{in}~Q~\nrightarrow$ we have $\neg \mathsf{wait}(a, Q)$ for every $a$.
 
 A process is lock free if every residual $Q$ of $P$ in which there are pending communications can reduce further to a state in which such operations complete.
 - **Definition** — $P$ is *lock free* if whenever $P \to^*~\mathtt{new}~c_1,\dots,c_n~\mathtt{in}~Q$ and $\mathsf{wait}(a,Q)$ there is $R$ such that $Q \to^*R$ and $\mathsf{sync}(a, R)$.
