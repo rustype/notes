@@ -18,9 +18,44 @@ html { font-family: 'Inter', sans-serif; }
   font-style: normal;
 }
 
+$main-color: #f37b2c;
+
+.back-to-top {
+  background-color: $main-color;
+  color: #FFFFFF;
+  opacity: 0;
+  transition: opacity .2s ease-in-out;
+  z-index: 999;
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  width: 50px;
+  height: 50px;
+  box-sizing: border-box;
+  border-radius: 50%;
+}
+
+a.back-to-top {
+  font-weight: 1000;
+  letter-spacing: 2px;
+  font-size: 14px;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 1.6;
+  padding-left: 2px;
+  padding-top: 14px;
+}
+
+// .back-to-top:hover, .back-to-top:focus, .back-to-top:visited {
+//   color: #FFFFFF;
+// }
+
+.back-to-top.show {
+  opacity: 1;
+}
 
 a {
-  color: #f37b2c;
+  color: $main-color;
 }
 
 .markdown-body {

@@ -17,6 +17,23 @@ The primary criteria of selection was based on what seemed the most useful,
 I looked for type-first approaches and the generation of programs,
 these matters are relevant in "Rust-land" to make use of the advanced type-system and macros.
 
+---
+**Table of Contents**
+
+- [Behavioural Types: from Theory to Tools](#behavioural-types-from-theory-to-tools)
+  - [Type-Based Analysis of Linear Communications](#type-based-analysis-of-linear-communications)
+    - [Type System](#type-system)
+      - [Channels](#channels)
+  - [Session Types with Linearity in Haskell](#session-types-with-linearity-in-haskell)
+    - [Introduction](#introduction)
+    - [Session Types in Haskell](#session-types-in-haskell)
+      - [Tracking Send and Receive Actions](#tracking-send-and-receive-actions)
+      - [Partial Safety via a Type-Level Function for Duality](#partial-safety-via-a-type-level-function-for-duality)
+  - [An OCaml Implementation of Binary Sessions](#an-ocaml-implementation-of-binary-sessions)
+    - [An API for Sessions](#an-api-for-sessions)
+
+---
+
 ## Type-Based Analysis of Linear Communications
 
 This chapter presents a tool and specification language called Hypha
@@ -142,3 +159,37 @@ which spawns a process with a fresh channel, returning a channel of the dual typ
 ```haskell
 fork :: Link s => (Chan s -> IO ()) -> IO (Chan (Dual s))
 ```
+
+## An OCaml Implementation of Binary Sessions
+
+This chapter presents `FuSe`, an OCaml module that implements binary sessions and enables a hybrid form of session type checking without external tools or language extensions.
+The approach combines static and dynamic checks.
+
+The summary overlooks several details and only extracts the more relevant parts from the API design perspective.
+
+### An API for Sessions
+
+Before presenting the API, there were some changes to the representation as to cope with the LaTeX/code conversion:
+
+- Subscripts are written TeX style `A_i`.
+- The dual of $A$, usually represented as $\bar{A}$, is represented as `~A`.
+- $\alpha$ was replaced with `a'`.
+- $\in$ was replaced with `in`.
+- $\oplus$ was replaced with `+*`.
+
+The `FuSe` high-level API is as follows:
+
+```ocaml
+val create  : unit -> A x ~A
+val close   : end -> unit
+val send    : a'-> !a'.A -> A
+val receive : ?a'.A -> a' x A
+val select  : (~(A_k) -> [l_i : ~{A_i}]_{i in I}) -> +*[l_i : A_i]_{i in I} -> A_k
+val branch  : &[l_i : A_i]_{i in I} -> [l_i : A_i]_{i in I}
+```
+
+- `send` sends a message of type `a'` over an endpoint of type `!a'.A` and returns the same endpoint with its type changed to `A` to reflect that the communication has occurred.
+- `receive` waits for a message of type `a'` from an endpoint of type `?a'.A` and returns a pair with the message of type `a'` from an endpoint of type `?a'.A` and returns a pair with the message and the same endpoint with its type changed to `A`.
+- `branch` and `select` deal with sessions that may continue along different interaction paths. Each path is associated with a label `l_i`.
+  - `select` takes a label `l_k` and an endpoint of type `+*[l_i : A_i]_{i in I}` where `k in I`, sends the label over the endpoint and returns the endpoint with its type changed to `A_k`.
+  - `branch` waits for a label from an endpoint of type `&[l_i : A_i]_{i in I}` and returns the continuation endpoint injected into a disjoint union.

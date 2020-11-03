@@ -4,6 +4,29 @@ layout: foam
 
 {{ content }}
 
+<!-- Adds the back to top link to your website -->
+<a href="#" id="back-to-top" class="back-to-top" style="display: inline">🏡</a>
+
+<!-- Fades in the button when you scroll down -->
+<script>
+  var link = document.getElementById("back-to-top");
+  var amountScrolled = 250;
+
+  window.addEventListener("scroll", function (e) {
+    if (window.pageYOffset > amountScrolled) {
+      link.classList.add("show");
+    } else {
+      link.className = "back-to-top";
+    }
+  });
+
+  link.addEventListener("click", function (e) {
+    e.preventDefault();
+    document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+  });
+</script>
+
 <script>
   MathJax = {
     loader: { load: ["[tex]/ams"] },
