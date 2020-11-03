@@ -38,10 +38,12 @@ each received message spawns a new copy of $P$.
 Hypha also ensures that its programs are deadlock free, however, it is important to note that not every deadlock free program is a valid Hypha program.
 
 A process is deadlock free if every residual of P that cannot reduce further does not contain pending communications.
-- **Definition** — $P$ is *deadlock free* if whenever $P~\to^*~\mathtt{new}~c_1,\dots,c_n~\mathtt{in}~Q~\nrightarrow$ we have $\neg \mathsf{wait}(a, Q)$ for every $a$.
+
+- **Definition** — $P$ is *deadlock free* if whenever $P\to^{\star}~\mathtt{new}~c_1,\dots,c_n~\mathtt{in}~Q~\nrightarrow$ we have $\neg \mathsf{wait}(a, Q)$ for every $a$.
 
 A process is lock free if every residual $Q$ of $P$ in which there are pending communications can reduce further to a state in which such operations complete.
-- **Definition** — $P$ is *lock free* if whenever $P \to^*~\mathtt{new}~c_1,\dots,c_n~\mathtt{in}~Q$ and $\mathsf{wait}(a,Q)$ there is $R$ such that $Q \to^*R$ and $\mathsf{sync}(a, R)$.
+
+- **Definition** — $P$ is _lock free_ if whenever $P\to^{\star}~\mathtt{new}~c_1,\dots,c_n~\mathtt{in}~Q$ and $\mathsf{wait}(a,Q)$ there is $R$ such that $Q\to^*R$ and $\mathsf{sync}(a,R)$.
 
 ### Type System
 
@@ -54,7 +56,7 @@ In Hypha, channels have three properties:
 - *Polarity* which specifies the operations allowed on the channel, which can be none, input, output, or both input and output.
 - The message type, which is an $n$-tuple of values.
 - A qualifier $q$ specifying how many time the channel can or must be used according to its polarity.
-    - The qualifier can be $*$, meaning the channel can be used any number of times.
+    - The qualifier can be *, meaning the channel can be used any number of times.
     - A qualifier in the form $^h_k$ means that the channel can only be used once.
         In this case, $h$ and $k$ are respectively the *level* and the *tickets* associated with the channel.
         Channels with smaller levels must be used before channels with greater levels,

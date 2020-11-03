@@ -128,7 +128,7 @@ We say that $\Gamma$ entails $\Im$. Here $\Gamma$ is a static typing environment
 e.g. an ordered list of distinct variables and their types, of the form $\phi, x_1: A_1, \dots, x_n:A_n$.
 
 The empty environment is denoted by $\phi$,
-and the collection of variables $x_1 \dots x_n$ declared in $\Gamma$ is indicated by $\mathnormal{dom}(\Gamma)$, the domain of $\Gamma$.
+and the collection of variables $x_1 \dots x_n$ declared in $\Gamma$ is indicated by $dom(\Gamma)$, the domain of $\Gamma$.
 
 The form of the assertion varies from judgement to judgement, but all the free variables must be declared in the environment.
 
@@ -139,8 +139,8 @@ $$
 \Gamma \vdash M:A
 $$
 
-Any given judgement can be regarded as *valid* (e.g. $\Gamma \vdash \mathnormal{true} : \mathnormal{Bool}$)
-or *invalid* (e.g. $\Gamma \vdash \mathnormal{true}:\mathnormal{Nat}$).
+Any given judgement can be regarded as *valid* (e.g. $\Gamma \vdash true:Bool$)
+or *invalid* (e.g. $\Gamma \vdash true:Nat$).
 Validity formalizes the notion of well typed programs.
 
 ### Type Rules
