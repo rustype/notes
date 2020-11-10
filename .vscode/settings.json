@@ -34,7 +34,8 @@
   },
   "foam.edit.linkReferenceDefinitions": "withExtensions",
   "foam.files.ignore": [
-    ".vscode/*",
-    "_layouts/*",
+    ".vscode/**/*",
+    "_layouts/**/*",
+    "_site/**/*"
   ]
 }
