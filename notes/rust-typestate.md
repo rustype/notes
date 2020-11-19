@@ -61,6 +61,13 @@ while Java is unable to provide this mechanism, Rust is.
 Using Rust we will be implementing something more complex than a `Open`/`Closed` switch,
 the following example is taken from the paper ["Typestates to Automata and back: a tool"](https://arxiv.org/pdf/2009.08769.pdf).
 
+<div id="drone" style="
+  height: 100px;
+  width: 100%;
+  margin: 0 auto;
+  display: block;
+"></div>
+
 We have a `Drone` which can be in three states:
 - `Idle` — the drone is on the ground.
 - `Hovering` — the drone is stopped mid-air.
@@ -214,9 +221,148 @@ mod sealed {
 pub trait DroneState: sealed::Sealed {}
 ```
 
-## Future Work
+### Adding References
 
-The described approach relies heavily on moving data around, instead of borrowing references.
-In some cases, moving is not ideal, while we could change our approach to rely on `Box<T>`,
-this prevents the approach from being used in systems without a heap, such as embedded systems,
-which benefit greatly from approaches like these (though they are not the only ones).
+The attentive reader may have noticed that the consumption and conversion of `self` into other types implies the values are moved
+(and in some cases, copied) around.
+In modern hardware, the cost of these operations can be negligible, however typestates should be domain independent,
+being available for use embedded systems and HPC clusters alike.
+
+Furthermore, making the most out of hardware should be a constant concern as it allows programs to be more efficient,
+saving resources which in turn equates in being able to run more software in the same machine, or electric savings.
+An example would be PHP 7, which boasts impressive performance improvements when compared to version 5 ([Phoronix](https://www.phoronix.com/scan.php?page=article&item=php-74-benchmarks&num=2)).
+
+With this in mind we can improve our typestate implementation to allow for the use of references.
+This improvement is based on the key takeaway that the drone state can be divided into two parts:
+the internal state, consisting of the coordinates;
+and the external state, represented by its physical state (`Idle`, `Hovering` or `Flying`).
+
+Our changes begin by extracting the coordinates to a separate structure:
+
+```rust
+pub struct Coordinates {
+    x: f32,
+    y: f32,
+}
+
+impl Coordinates {
+    fn new() -> Self {
+        Self {x: 0, y: 0}
+    }
+}
+```
+
+In turn, this allows us to describe our `Drone` as:
+
+```rust
+pub struct Drone<'coords, State>
+where
+    State: DroneState,
+{
+    coordinates: &'coords mut Coordinates,
+    state: PhantomData<State>,
+}
+```
+
+We still need to implement our new initial state
+(the state transitions are addressed further in this tutorial).
+Bearing the previous changes in mind, our new `Drone::new` now takes a `Coordinates` mutable reference:
+
+```rust
+impl<'coords> Drone<'coords, Idle> {
+    pub fn new(coordinates: &'coords mut Coordinates) -> Self {
+        Self {
+            coordinates,
+            state: PhantomData,
+        }
+    }
+}
+```
+
+The code above (and the remaining code) makes use of lifetimes to ensure our reference stays alive throughout the operation of the drone and
+gets reused instead of creating a new copy or moving the structure around.
+
+We declare `coordinates` as `mut` since in order for our drone to be able to fly,
+`x` and `y` should be able to be mutated, thus our reference is required to be mutable.
+The main use case for this detail is present in the `fly` function:
+
+```rust
+impl<'coords> Drone<'coords, Flying> {
+    fn fly(mut self, x: f32, y: f32) -> Drone<'coords, Hovering> {
+        self.inner.x = x;
+        self.inner.y = y;
+        Drone::<Hovering>::from(self)
+    }
+}
+```
+
+Finally, the code that creates and uses the drone will first create a `Coordinates` instance and then pass it to our new `Drone::new`.
+
+```rust
+fn fly_drone() {
+    let mut inner = InnerDrone::new(0.0, 0.0);
+    let drone = Drone::<Idle>::new(&mut inner)
+        .take_off()
+        .move_to(-5.0, -5.0)
+        .land();
+}
+```
+
+**Note**: This implementation method could be avoided by using `Box`, thus allocating the value on the heap,
+however, as previously mentioned, all kinds of systems should be able to use our typestate implementation,
+to this end, we need to take into account that not every system has a heap,
+the best example would be embedded systems which are only able to use the stack.
+With our approach, using `Box` is still possible,
+by using [`Box::as_mut`](https://doc.rust-lang.org/std/boxed/struct.Box.html#impl-AsMut%3CT%3E).
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.17.0/cytoscape.min.js" integrity="sha512-IawH7O9E5azuuGrjPfWpcrniP8gqS0BL9Dr0zw/1cK81cGSgBcABfJUgHi9YvychZt+5SkQYEFeCvBOs0tilxA==" crossorigin="anonymous"></script>
+<script>
+var cy = cytoscape({
+  container: document.getElementById('drone'), // container to render in
+  elements: [ // list of graph elements to start with
+    { data: { id: 'Idle' } },
+    { data: { id: 'Hovering' } },
+    { data: { id: 'Flying' } },
+    { data: { id: 'take_off', source: 'Idle', target: 'Hovering' } },
+    { data: { id: 'land', source: 'Hovering', target: 'Idle' } },
+    { data: { id: 'move_to', source: 'Flying', target: 'Hovering' } },
+    { data: { id: 'after::move_to', source: 'Hovering', target: 'Flying' } }
+  ],
+  style: [ // the stylesheet for the graph
+    {
+      selector: 'node',
+      style: {
+        'background-color': '#666',
+        'label': 'data(id)'
+      }
+    },
+    {
+      selector: 'edge',
+      style: {
+        'width': 3,
+        'line-color': '#ccc',
+        'target-arrow-color': '#ccc',
+        'target-arrow-shape': 'triangle',
+        'curve-style': 'bezier',
+        'label': 'data(id)',
+      }
+    },
+    {
+        selector: 'label',
+        style: {
+            'text-background-color': '#FFFFFF',
+            'text-background-opacity': 1,
+        }
+    }
+  ],
+  layout: {
+    name: 'grid',
+    rows: 1
+  },
+  userZoomingEnabled: false,
+  userPanningEnabled: false,
+  boxSelectionEnabled: false,
+  autoungrabify: true,
+});
+cy.fit();
+</script>
