@@ -3,7 +3,7 @@
   "editor.wrappingIndent": "indent",
   "editor.overviewRulerBorder": false,
   "editor.lineHeight": 18,
-  "workbench.colorTheme": "GitHub Light",
+  "workbench.colorTheme": "GitHub Dark",
   "[markdown]": {
     "editor.quickSuggestions": true,
     "editor.tabSize": 4,
@@ -34,9 +34,9 @@
   },
   "foam.edit.linkReferenceDefinitions": "withExtensions",
   "foam.files.ignore": [
-    ".vscode/**/*",
-    "_layouts/**/*",
-    "_site/**/*",
-    ".git/**/*"
+    "**/.vscode/**/*",
+    "**/_layouts/**/*",
+    "**/_site/**/*",
+    "**/node_modules/**/*"
   ]
 }

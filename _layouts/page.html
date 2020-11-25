@@ -4,6 +4,21 @@ layout: foam
 
 {{ content }}
 
+<a href="#" id="light-mode" class="light-mode" style="display: inline">💡</a>
+<script>
+  let lightBtn = document.getElementById("light-mode");
+  lightBtn.addEventListener("click", toggleLightMode)
+  function toggleLightMode() {
+    let style = document.body.style;
+    if (style.backgroundColor && style.backgroundColor !== "rgb(255, 255, 255)") {
+      style.backgroundColor = "rgb(255, 255, 255)";
+      style.color = "rgb(48, 48, 48)";
+    } else if (style.backgroundColor !== "rgb(48, 48, 48)") {
+      style.backgroundColor = "rgb(48, 48, 48)";
+      style.color = "rgb(255, 255, 255)";
+    }
+  }
+</script>
 <!-- Adds the back to top link to your website -->
 <a href="#" id="back-to-top" class="back-to-top" style="display: inline">🏡</a>
 
