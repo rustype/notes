@@ -105,11 +105,11 @@ By now we have a simple structure being generated, lets move on to the typestate
 To generate the typestates we have to consider that not all states are used the same way.
 To cope with it, we categorize the states according to strictness:
 
-| Strictness | Description | Implications |
-| --- | --- | --- |
-| None | Allows users to declare the generic argument for any possible type | All bets are off, state is completely public |
+| Strictness  | Description                                                                | Implications                                               |
+| ----------- | -------------------------------------------------------------------------- | ---------------------------------------------------------- |
+| None        | Allows users to declare the generic argument for any possible type         | All bets are off, state is completely public               |
 | Constrained | Users are required to make the type implement the respective `State` trait | Avoids "accidental" implementations over the generic state |
-| Strict | Users are not able to extend the automata | Avoids the addition of new states to the automata |
+| Strict      | Users are not able to extend the automata                                  | Avoids the addition of new states to the automata          |
 
 For this we will write another macro, we will need to declare the strictness level as well as possible states.
 Let us start with the possible states.
