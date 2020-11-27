@@ -4,7 +4,7 @@ tags: rust, typestate
 # Rusty Typestates
 
 This work is part of my thesis on behavioral types,
-suggestions are welcome and can be submitted as issues to any of the repositories in the `rustype` organization.
+suggestions are welcome and can be submitted as issues to any of the repositories in the [`rustype` organization](https://github.com/rustype).
 Any issues you wish to discuss further, please contact me through [Keybase](https://keybase.io/jmgduarte) or [Twitter](https://twitter.com/duartejmg).
 
 This series aims to be a kind of devlog where I explore typestates (maybe others as well)
