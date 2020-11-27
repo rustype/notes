@@ -32,7 +32,7 @@
       "typestates"
     ]
   },
-  "foam.edit.linkReferenceDefinitions": "withExtensions",
+  "foam.edit.linkReferenceDefinitions": "withoutExtensions",
   "foam.files.ignore": [
     "**/.vscode/**/*",
     "**/_layouts/**/*",
