@@ -2,18 +2,26 @@
 ---
 
 @import "{{ site.theme }}";
-@import url('https://rsms.me/inter/inter.css');
-html { font-family: 'Inter', sans-serif; }
+@import url("https://rsms.me/inter/inter.css");
+html {
+  font-family: "Inter", sans-serif;
+}
 @supports (font-variation-settings: normal) {
-  html { font-family: 'Inter var', sans-serif; }
+  html {
+    font-family: "Inter var", sans-serif;
+  }
 }
 
-@font-face{
-  font-family: 'JetBrains Mono';
-  src: url('https://raw.githubusercontent.com/JetBrains/JetBrainsMono/master/fonts/webfonts/JetBrainsMono-Regular.eot') format('embedded-opentype'),
-       url('https://raw.githubusercontent.com/JetBrains/JetBrainsMono/master/fonts/webfonts/JetBrainsMono-Regular.woff2') format('woff2'),
-       url('https://raw.githubusercontent.com/JetBrains/JetBrainsMono/master/fonts/webfonts/JetBrainsMono-Regular.woff') format('woff'),
-       url('https://raw.githubusercontent.com/JetBrains/JetBrainsMono/master/fonts/ttf/JetBrainsMono-Regular.ttf') format('truetype');
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("https://raw.githubusercontent.com/JetBrains/JetBrainsMono/master/fonts/webfonts/JetBrainsMono-Regular.eot")
+      format("embedded-opentype"),
+    url("https://raw.githubusercontent.com/JetBrains/JetBrainsMono/master/fonts/webfonts/JetBrainsMono-Regular.woff2")
+      format("woff2"),
+    url("https://raw.githubusercontent.com/JetBrains/JetBrainsMono/master/fonts/webfonts/JetBrainsMono-Regular.woff")
+      format("woff"),
+    url("https://raw.githubusercontent.com/JetBrains/JetBrainsMono/master/fonts/ttf/JetBrainsMono-Regular.ttf")
+      format("truetype");
   font-weight: normal;
   font-style: normal;
 }
@@ -22,9 +30,9 @@ $main-color: #f37b2c;
 
 .back-to-top {
   background-color: $main-color;
-  color: #FFFFFF;
+  color: #ffffff;
   opacity: 0;
-  transition: opacity .2s ease-in-out;
+  transition: opacity 0.2s ease-in-out;
   z-index: 999;
   position: fixed;
   right: 20px;
@@ -93,7 +101,12 @@ img[src*="demo"] {
   }
 }
 
-h1, h2, h3, h4, h5, blockquote {
+h1,
+h2,
+h3,
+h4,
+h5,
+blockquote {
   font-family: Inter, sans-serif;
 }
 
@@ -102,7 +115,7 @@ blockquote {
 }
 
 code {
-  font-family: 'JetBrains Mono';
+  font-family: "JetBrains Mono";
 }
 
 * {
