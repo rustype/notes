@@ -743,3 +743,97 @@ fn functionize_field(field: &syn::Field) -> proc_macro2::TokenStream {
 ```
 
 > **Recap** - You can read the code written so far [here](https://github.com/rustype/proc-macro-workshop/blob/b4bdeb44c384e8907e310662239216434e462df9/builder/src/lib.rs).
+
+## Repeated Fields
+
+In this exercise we are introduced to "inner attributes",
+as the exercise description says:
+
+> The word "inert" indicates that these attributes do not correspond to a macro invocation on their own; they are simply looked at by other macro invocations.
+
+Before even trying to handle them, we need to declare them on the top of our macro:
+
+```diff
+- #[proc_macro_derive(Builder)]
++ #[proc_macro_derive(Builder, attributes(builder))]
+```
+
+We're ready to start!
+Our new attributes will show up in the `attrs` field of each `syn::Field`,
+just like we did with the `Option` we can run a method on the field and generate the new code accordingly.
+And once more, since we separated our functions we can just mess with the one related with our objective,
+in this case: `functionize_field`.
+
+To aid us we'll create a function which deals with the attributes:
+
+```rust
+fn extract_attribute_builder_args<'s>(attrs: &Vec<syn::Attribute>) -> Option<&'s str> {
+    if !attrs.is_empty() {
+        if let Some(attr) = attrs.last() {
+            let ref segments = attr.path.segments;
+            if let Some(syn::PathSegment { ident, .. }) = segments.last() {
+                if ident == "builder" {
+                    // valid attribute
+                }
+            }
+        }
+    }
+    None
+}
+```
+
+The function above only checks if the attribute is valid,
+this is in line with the documentation which states the following:
+
+> If the attribute you are parsing is expected to conform to the conventional structured form of attribute,
+> use parse_meta() to obtain that structured representation.
+> If the attribute follows some other grammar of its own,
+> use parse_args() to parse that into the expected data structure.
+>
+> <https://docs.rs/syn/1.0.53/syn/struct.Attribute.html#parsing-from-attribute-to-structured-arguments>
+
+While we could use `parse_meta` we know that our expression is an assignment,
+luckily there is a special type for that `syn::ExprAssign`, so we can use `parse_args::<syn::ExprAssign>()`,
+which will yield something like:
+
+<!-- Best example for a graph representation -->
+
+```
+Ok(
+    ExprAssign {
+        attrs: [],
+        left: Path(
+            ExprPath {
+                attrs: [],
+                qself: None,
+                path: Path {
+                    leading_colon: None,
+                    segments: [
+                        PathSegment {
+                            ident: Ident {
+                                ident: "each",
+                                span: #0 bytes(306..310),
+                            },
+                            arguments: None,
+                        },
+                    ],
+                },
+            },
+        ),
+        eq_token: Eq,
+        right: Lit(
+            ExprLit {
+                attrs: [],
+                lit: Str(
+                    LitStr {
+                        token: "env",
+                    },
+                ),
+            },
+        ),
+    },
+)
+```
+
+From the moment `parse_args` returns `Ok(..)` we know that the expression was successfully parsed, and
+we can simply check the left and right tokens.
