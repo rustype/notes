@@ -741,3 +741,5 @@ fn functionize_field(field: &syn::Field) -> proc_macro2::TokenStream {
     )
 }
 ```
+
+> **Recap** - You can read the code written so far [here](https://github.com/rustype/proc-macro-workshop/blob/b4bdeb44c384e8907e310662239216434e462df9/builder/src/lib.rs).
