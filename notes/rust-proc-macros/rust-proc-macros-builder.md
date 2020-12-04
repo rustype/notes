@@ -410,10 +410,11 @@ fn builder_impl(struct_ident: &syn::Ident, data: &syn::Data) -> Option<proc_macr
         ..
     }) = data
     {
+        let builder_impl_functions = named_fields.iter().map( /* our function goes here */ );
         let builder_struct_ident = format_ident!("{}Builder", struct_ident);
         Some(quote!(
             impl #builder_struct_ident {
-
+                #(#builder_impl_functions)*
             }
         ))
     } else {
@@ -427,8 +428,9 @@ fn builder_impl(struct_ident: &syn::Ident, data: &syn::Data) -> Option<proc_macr
 >
 > - We write duplicate code and iterate twice, but keep the logic of each generation separate
 > - We write a single pass and return a tuple containing both the new fields, and the function implementation
+> - We write a generic function which takes a closure
 >
-> Personally, I dislike **both**, the first has duplicated code, but the second makes our code hard to read.
+> Personally, I dislike **all three**, the first has duplicated code, but the second makes our code hard to read, third just makes it convoluted, I don't think there is a need for a closure in this case.
 > In this case I'll opt with the first alternative, if you have ideas how to solve this feel free to reach out to me!
 
 We'll repeat the pattern of extracting a function to generate the desired code, in this case I called it `functionize_field`, amazing I know! You can see it below:
@@ -446,4 +448,139 @@ fn functionize_field(field: &syn::Field) -> proc_macro2::TokenStream {
 }
 ```
 
+Currently, you should be able to run `cargo test` and have tests one through three pass.
+
 > **Recap** - You can read the code written so far [here](https://github.com/rustype/proc-macro-workshop/blob/1718a251bcd43962100f5c07a0942ec54ec70214/builder/src/lib.rs).
+
+## Call Build
+
+For the fourth exercise we are tasked with writing `build` which should actually build our structure.
+The function looks like:
+
+```rust
+impl CommandBuilder {
+    pub fn build(&mut self) -> Result<Command, Box<dyn Error>> {
+        // ...
+    }
+}
+```
+
+We can start by adding the build function stub to the method we extracted earlier:
+
+```rust
+fn builder_impl(struct_ident: &syn::Ident, data: &syn::Data) -> Option<proc_macro2::TokenStream> {
+    if let syn::Data::Struct(syn::DataStruct {
+        fields:
+            syn::Fields::Named(syn::FieldsNamed {
+                named: named_fields,
+                ..
+            }),
+        ..
+    }) = data
+    {
+        let builder_impl_functions = named_fields.iter().map(functionize_field);
+        let builder_struct_ident = format_ident!("{}Builder", struct_ident);
+        Some(quote!(
+            impl #builder_struct_ident {
+                pub fn build(&mut self) -> std::result::Result<#struct_ident, Box<dyn std::error::Error>> {
+                    /* we now have to fill this */
+                }
+                #(#builder_impl_functions)*
+            }
+        ))
+    } else {
+        None
+    }
+}
+```
+
+The filling to our function should contain the original structure name,
+as it is the function's output, as well as contain the fields.
+The fields however, should throw an error in the case that they are set to `None` (i.e. they were not initialized).
+
+Once again we'll take advantage of the iterators and create a function which only deals with a single field,
+writing for one, getting the result for all.
+
+We first extract the identifier,
+then we use it to build the assignment,
+since we know the original struct field name matches the builder field name we just add the self.
+
+```rust
+fn assign_field(field: &syn::Field) -> proc_macro2::TokenStream {
+    let ref field_name = field.ident;
+    quote!(#field_name: self.#field_name)
+}
+```
+
+This is not enough however, the type of `self.#field_name` is `Option<T>`,
+we also need to return an error in the case it is `None`,
+we can use `Option::ok_or` to do so, unwrapping it with `?` to propagate the error.
+
+```rust
+fn assign_field(field: &syn::Field) -> proc_macro2::TokenStream {
+    let ref field_name = field.ident;
+    quote!(#field_name: self.#field_name.ok_or("field not initialized")?)
+}
+```
+
+Finally, the compiler will complain how the `Option`'s content does not implement `Copy`:
+
+```
+error[E0507]: cannot move out of `self.current_dir` which is behind a mutable reference
+  --> $DIR/04-call-build.rs:16:10
+   |
+16 | #[derive(Builder)]
+   |          ^^^^^^^
+   |          |
+   |          move occurs because `self.current_dir` has type `std::option::Option<std::string::String>`, which does not implement the `Copy` trait
+   |          help: consider borrowing the `Option`'s content: `Builder.as_ref()`
+   |
+   = note: this error originates in a derive macro (in Nightly builds, run with -Z macro-backtrace for more info)
+```
+
+To solve the error we simply can simply use `.clone`:
+
+```rust
+fn assign_field(field: &syn::Field) -> proc_macro2::TokenStream {
+    let ref field_name = field.ident;
+    quote!(#field_name: self.#field_name.clone().ok_or("field not initialized")?)
+}
+```
+
+Now we just need to make use of the function:
+
+```rust
+fn builder_impl(struct_ident: &syn::Ident, data: &syn::Data) -> Option<proc_macro2::TokenStream> {
+    if let syn::Data::Struct(syn::DataStruct {
+        fields:
+            syn::Fields::Named(syn::FieldsNamed {
+                named: named_fields,
+                ..
+            }),
+        ..
+    }) = data
+    {
+        let builder_impl_functions = named_fields.iter().map(functionize_field);
+        let builder_fields = named_fields.iter().map(assign_field); // we use the function here
+        let builder_struct_ident = format_ident!("{}Builder", struct_ident);
+        Some(quote!(
+            impl #builder_struct_ident {
+                pub fn build(&mut self) -> std::result::Result<#struct_ident, Box<dyn std::error::Error>> {
+                    // And the iter inside the function
+                    Ok(
+                        #struct_ident {
+                            #(#builder_fields),*
+                        }
+                    )
+                }
+
+                #(#builder_impl_functions)*
+            }
+        ))
+    } else {
+        None
+    }
+}
+```
+
+> **Recap** - You can read the code written so far [here](https://github.com/rustype/proc-macro-workshop/blob/0f65e71219ac39b265f58020338d5e5462e86704/builder/src/lib.rs).
