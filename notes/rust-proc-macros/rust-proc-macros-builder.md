@@ -268,7 +268,7 @@ pub struct CommandBuilder {
 To finalize exercise two we now need to wrap the type with `Option<T>`.
 Since we already have the fields in a `iter` we can just `.map` over them and add the necessary changes.
 
-To ease reading (and because of good practices) lets extract this functionality of "optionizing" a field to a function.
+To ease reading (and because of good practices) let's extract this functionality of "optionizing" a field to a function.
 
 ```rust
 fn optionize_field(field: &syn::Field) -> proc_macro2::TokenStream {
@@ -372,7 +372,7 @@ fn #ident(&mut self, #ident: #ty) -> &mut Self {
 `#ident` will be the identifier and `ty` the type of the original variable.
 As a quick aside, notice how using `Self` helps us by saving some work!
 
-As usual, lets first break down what we have to do to achieve our goal:
+As usual, let's first break down what we have to do to achieve our goal:
 
 1. Write the `impl`
 2. Write the functions
@@ -584,3 +584,160 @@ fn builder_impl(struct_ident: &syn::Ident, data: &syn::Data) -> Option<proc_macr
 ```
 
 > **Recap** - You can read the code written so far [here](https://github.com/rustype/proc-macro-workshop/blob/0f65e71219ac39b265f58020338d5e5462e86704/builder/src/lib.rs).
+
+
+## Method Chaining
+
+As the description says, this should be a freebie of our previous tests are working, and it is!
+You can run `cargo test` to check out if everything is running properly.
+
+This comes for free since each function in our builder returns a reference to the `Builder`,
+this allows us to chain the methods as follows:
+
+```rust
+fn main() {
+    let command = Command::builder()
+        .executable("cargo".to_owned())
+        .args(vec!["build".to_owned(), "--release".to_owned()])
+        .env(vec![])
+        .current_dir("..".to_owned())
+        .build()
+        .unwrap();
+
+    assert_eq!(command.executable, "cargo");
+}
+```
+
+## Optional Field
+
+Arriving at exercise six we have a wall of text to read, I *strongly* recommend you to read it with attention,
+as it is interesting, informative and important for the exercise.
+
+> **TL:DR** - We will want to identify `Option<T>` in the original structure and act accordingly.
+
+To make it more concrete, the now original structure is:
+
+```rust
+pub struct Command {
+    executable: String,
+    args: Vec<String>,
+    env: Vec<String>,
+    current_dir: Option<String>,
+}
+```
+
+<!-- Another great candidate for a tree -->
+
+Notice the `Option<String>`? That means we will want to make `current_dir` optional when writing our macro's output.
+Since we have been extracting the field handling logic to separate functions,
+now we can simply check if the field's type is option and act accordingly.
+To do so, we first write a function which, when given a type, checks if it is `Option`,
+we just need to follow the path suggested in the exercise.
+
+```rust
+fn is_type_option(ty: &syn::Type) -> bool {
+    if let syn::Type::Path(syn::TypePath {
+        path: syn::Path { segments, .. },
+        ..
+    }) = ty
+    {
+        if let Some(is_opt) = segments
+            .last()
+            .map(|path_segment| &path_segment.ident == "Option")
+        {
+            return is_opt;
+        }
+    }
+    false
+}
+```
+
+We traverse the tree from `syn::Type` up to the array of `PathSegment`,
+from there we just need to get the last element and check if its identifier is `Option`.
+
+> **Note** - We only care for the last element of the path since `Option` and `std::option::Option` are exactly the same, and we want to handle both.
+
+Wielding this powerful function we can just check for `Option` in our functions.
+
+### `optionize_field`
+
+If a field is already `Option<T>` we don't want to make it `Option<Option<T>>`:
+
+```rust
+fn optionize_field(field: &syn::Field) -> proc_macro2::TokenStream {
+    let ref field_name = field.ident;
+    let ref field_type = field.ty;
+    if is_type_option(field_type) {
+        quote!(#field_name: #field_type)
+    } else {
+        quote!(#field_name: std::option::Option<#field_type>)
+    }
+}
+```
+
+### `assign_field`
+
+If a field is optional, we don't want to run `ok_or` on it:
+
+```rust
+fn assign_field(field: &syn::Field) -> proc_macro2::TokenStream {
+    let ref field_name = field.ident;
+    let ref field_type = field.ty;
+    if is_type_option(field_type) {
+        quote!(#field_name: self.#field_name.clone())
+    } else {
+        quote!(#field_name: self.#field_name.clone().ok_or("field was not set")?)
+    }
+}
+```
+
+### `functionize_field`
+
+In the case the field is `Option<T>`, when writing the setter, we want to use `T` as the type, not `Option<T>`.
+For this we are required to extract the inner type of `Option` and not only check,
+we can rewrite our `is_type_option` to extract the inner type instead:
+
+```rust
+fn extract_inner_type<'t>(ty: &'t syn::Type, expected_ident: &str) -> Option<&'t syn::Type> {
+    if let syn::Type::Path(syn::TypePath {
+        path: syn::Path { segments, .. },
+        ..
+    }) = ty
+    {
+        if let Some(syn::PathSegment {
+            ident,
+            arguments:
+                syn::PathArguments::AngleBracketed(syn::AngleBracketedGenericArguments { args, .. }),
+        }) = segments.last()
+        {
+            if ident == expected_ident {
+                if let Some(syn::GenericArgument::Type(ty)) = args.last() {
+                    return Some(ty)
+                }
+            }
+        }
+    }
+    None
+}
+```
+
+Once again, we abuse the `if let` mechanism to run through the *happy* path,
+if at any point we leave the happy path we just reach the end and return `None`.
+Now instead of using `is_type_option` we can call `extract_inner_type(ty, "Option")` and check with `is_some`:
+In the case of `functionize_field`, instead of `is_some`, we use `if let` again since we want to work with the return value:
+
+```rust
+fn functionize_field(field: &syn::Field) -> proc_macro2::TokenStream {
+    let ref field_name = field.ident;
+    let mut field_type = &field.ty;
+    if let Some(inner_ty) = extract_inner_type(field_type, "Option") {
+        field_type = inner_ty;
+    }
+    quote!(
+        fn #field_name(&mut self, #field_name: #field_type) -> &mut Self {
+            self.#field_name = Some(#field_name);
+            self
+        }
+    )
+}
+```
