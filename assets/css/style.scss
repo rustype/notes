@@ -85,19 +85,19 @@ input.task-list-item-checkbox {
   margin-right: 4px;
 }
 
-img[src*="demo"] {
-  border: 1px #eee solid;
-  -webkit-box-shadow: 4px 4px 16px 0px rgba(50, 50, 50, 0.1);
-  -moz-box-shadow: 4px 4px 16px 0px rgba(50, 50, 50, 0.1);
-  box-shadow: 4px 4px 16px 0px rgba(50, 50, 50, 0.1);
-}
+// img {
+//   border: 1px #eee solid;
+//   -webkit-box-shadow: 4px 4px 16px 0px rgba(50, 50, 50, 0.1);
+//   -moz-box-shadow: 4px 4px 16px 0px rgba(50, 50, 50, 0.1);
+//   box-shadow: 4px 4px 16px 0px rgba(50, 50, 50, 0.1);
+// }
 
 @media only screen and (min-width: 1170px) {
-  img[src*="demo"] {
+  img {
     max-width: 130%;
-    margin-left: -15%;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
   }
 }
 
