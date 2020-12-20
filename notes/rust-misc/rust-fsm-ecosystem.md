@@ -4,6 +4,21 @@ tags: rust, fsm, typestate
 
 # Rust's FSM Ecosystem
 
+- [Rust's FSM Ecosystem](#rusts-fsm-ecosystem)
+	- [Introduction](#introduction)
+	- [Existing Crates](#existing-crates)
+		- [`finite-automata`](#finite-automata)
+		- [`fsm`](#fsm)
+		- [`macro_machine`](#macro_machine)
+		- [`state-machine-future`](#state-machine-future)
+		- [`mode`](#mode)
+		- [`machine`](#machine)
+		- [`smlang`](#smlang)
+		- [`rust-fsm-dsl`](#rust-fsm-dsl)
+	- [Conclusion](#conclusion)
+
+## Introduction
+
 This post's purpose is to provide an overview of Rust's existing finite state machine crates and if (and how) they fit in my use case,
 it fits the bigger purpose of my ongoing research into [[rust-typestate-index]].
 
@@ -18,28 +33,10 @@ in this case, typestates prevent attempting to read from a closed file.
 Typestates can be encoded as [FSMs](https://en.wikipedia.org/wiki/Finite-state_machine),
 hence their relation with the current post.
 
-
-
-Crates were discovered searching for `state machine` in [crates.io](https://crates.io).
-
-| Crate Name             | Crates.io                                       | Repository                                       | Documentation                                            | Last Commit                                                                                                   |
-| ---------------------- | ----------------------------------------------- | ------------------------------------------------ | -------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
-| `finite-automata`      | <https://crates.io/crates/finite-automata>      | <https://github.com/RobertDurfee/FiniteAutomata> | <https://docs.rs/finite-automata/0.1.1/finite_automata/> |  |
-| `fsm`                  | <https://crates.io/crates/fsm>                  |                                                  |                                                          |                                                                                                               |
-| `macro_machine`        | <https://crates.io/crates/macro_machine>        |                                                  |                                                          |                                                                                                               |
-| `state_machine_future` | <https://crates.io/crates/state_machine_future> |                                                  |                                                          |                                                                                                               |
-| `mode`                 | <https://crates.io/crates/mode>                 |                                                  |                                                          |                                                                                                               |
-| `machine`              | <https://crates.io/crates/machine>              |                                                  |                                                          |                                                                                                               |
-| `smlang`               | <https://crates.io/crates/smlang>               |                                                  |                                                          |                                                                                                               |
-| `rust-fsm-dsl`             | <https://crates.io/crates/rust-fsm-dsl>             |                                                  |                                                          |                                                                                                               |
-
-https://crates.io/crates/microstate
-https://crates.io/crates/beehave
-https://crates.io/crates/genfsm
-
 ## Existing Crates
 
 After the brief introduction to typestates, we can start looking around the ecosystem for FSM crates and check if they implement the notion (or a close one) of typestates.
+Crates were discovered searching for `state machine` in [crates.io](https://crates.io).
 
 > **Note** - The reviewed libraries were not thoroughly tested and were reviewed from a "which ideas can I take and improve upon" point.
 
@@ -47,7 +44,7 @@ After the brief introduction to typestates, we can start looking around the ecos
 
 - [Docs.rs](https://docs.rs/finite-automata/0.1.1/finite_automata/)
 - [crates.io](https://crates.io/crates/finite-automata)
-- [Repository](https://github.com/RobertDurfee/FiniteAutomata) | [Last Commit - 13 Aug 2020](https://github.com/RobertDurfee/FiniteAutomata/commit/962ef8b6bcbadb4b1a093a6829846225fa70e0cc)
+- [Repository](https://github.com/RobertDurfee/FiniteAutomata) / [Last Commit - 13 Aug 2020](https://github.com/RobertDurfee/FiniteAutomata/commit/962ef8b6bcbadb4b1a093a6829846225fa70e0cc)
 
 The `finite-automata` crate is a "*collection of extendable finite automata with immutable state and transition data*",
 neither the documentation, nor the repository present usage examples.
@@ -58,7 +55,7 @@ the crates does not appear to provide compile-time errors of state machine misus
 
 - [Docs.rs](https://docs.rs/fsm/0.2.2)
 - [crates.io](https://crates.io/crates/fsm)
-- [Repository](https://github.com/omaskery/fsm-rs) | [Last Commit - 29 Aug 2015](https://github.com/omaskery/fsm-rs/commit/ca0b1c9e0e07996a9e15d47e0f99c18083aca14d)
+- [Repository](https://github.com/omaskery/fsm-rs) / [Last Commit - 29 Aug 2015](https://github.com/omaskery/fsm-rs/commit/ca0b1c9e0e07996a9e15d47e0f99c18083aca14d)
 
 The `fsm` crate works by defining states and events as `enums`,
 registering them in a state machine and then stepping though the states by feeding events.
@@ -86,7 +83,7 @@ it is possible for the programmer to mistakenly write the wrong event and only n
 
 - [Docs.rs](https://docs.rs/macro_machine/0.2.0/macro_machine/)
 - [crates.io](https://crates.io/crates/macro_machine)
-- [Repository](https://github.com/VKlayd/rust_fsm_macros) | [Last Commit - 5 Oct 2017](https://github.com/VKlayd/rust_fsm_macros/commit/dd73a0bb235a82d44573ec1d889f08c8f8770784)
+- [Repository](https://github.com/VKlayd/rust_fsm_macros) / [Last Commit - 5 Oct 2017](https://github.com/VKlayd/rust_fsm_macros/commit/dd73a0bb235a82d44573ec1d889f08c8f8770784)
 
 This crate provides a single `macro_rules` macro,
 which implements a DSL for finite state machine declaration.
@@ -99,7 +96,7 @@ The crate allows the user to write callbacks upon entering and leaving states as
 
 - [Docs.rs](https://docs.rs/state_machine_future/0.2.0/state_machine_future/)
 - [crates.io](https://crates.io/crates/state_machine_future)
-- [Repository](https://github.com/fitzgen/state_machine_future) |  [Last Commit - 28 Mar 2019](https://github.com/fitzgen/state_machine_future/commit/6bceb8cc2c1178ceafe0745b87a501418ea6600d)
+- [Repository](https://github.com/fitzgen/state_machine_future) / [Last Commit - 28 Mar 2019](https://github.com/fitzgen/state_machine_future/commit/6bceb8cc2c1178ceafe0745b87a501418ea6600d)
 
 `state_machine_future` provides type-safe futures from state machines along with several other FSM related features, such as:
 
@@ -119,7 +116,7 @@ The custom derive will then generate all required boilerplate, the user is only 
 
 - [Docs.rs](https://docs.rs/mode/0.4.0/)
 - [crates.io](https://crates.io/crates/mode)
-- [Repository](https://github.com/andrewtc/mode) |  [Last Commit - 21 Mar 2020](https://github.com/andrewtc/mode/commit/d8d72e12670b9275ca3e5ab4bd5a9a27c9faaf38)
+- [Repository](https://github.com/andrewtc/mode) / [Last Commit - 21 Mar 2020](https://github.com/andrewtc/mode/commit/d8d72e12670b9275ca3e5ab4bd5a9a27c9faaf38)
 
 `mode` is a crate to build finite state machines,
 it is simple and short, with less than 200 lines of code and provides attractive features as being written exclusively in safe Rust and using no allocations.
@@ -131,7 +128,7 @@ however this is an existing limitation which may be lifted as the Rust compiler 
 
 - [Docs.rs](https://docs.rs/machine/0.3.0)
 - [crates.io](https://crates.io/crates/machine)
-- [Repository](https://github.com/rust-bakery/machine) | [Last Commit - 14 Jun 2019](https://github.com/rust-bakery/machine/commit/4588a2192d5ca9b60f02c9f710b3ff8058384d6b)
+- [Repository](https://github.com/rust-bakery/machine) / [Last Commit - 14 Jun 2019](https://github.com/rust-bakery/machine/commit/4588a2192d5ca9b60f02c9f710b3ff8058384d6b)
 
 The `machine` crate makes use of function procedural macros to create a DSL for the FSM,
 however, it does not provide compile time errors for wrong transitions (such as the others).
@@ -147,7 +144,7 @@ assert_eq!(t, Traffic::error());
 
 - [Docs.rs](https://docs.rs/smlang/0.3.5/smlang)
 - [crates.io](https://crates.io/crates/smlang)
-- [Respository](https://github.com/korken89/smlang-rs/) | [Last Commit - 28 Oct 2020](https://github.com/korken89/smlang-rs/commit/48c660df3ed0b8098d17e0e52e8c536f60e01b21)
+- [Respository](https://github.com/korken89/smlang-rs/) / [Last Commit - 28 Oct 2020](https://github.com/korken89/smlang-rs/commit/48c660df3ed0b8098d17e0e52e8c536f60e01b21)
 
 This crate is based on [[Boost::ext].SML](https://boost-ext.github.io/sml/tutorial.html),
 at this point most FSM libraries look the same with different DSLs behind them.
@@ -160,7 +157,7 @@ Just like with previous crates, there is the possibility that the developer call
 
 - [Docs.rs](https://docs.rs/rust-fsm-dsl/0.4.0/rust_fsm_dsl/)
 - [crates.io](https://crates.io/crates/rust-fsm-dsl)
-- [Repository](https://github.com/eugene-babichenko/rust-fsm) | [Last Commit - 25 Aug 2020](https://github.com/eugene-babichenko/rust-fsm/commit/ee6dcefeb7cc447858ad92af9824707910a02ed6)
+- [Repository](https://github.com/eugene-babichenko/rust-fsm) / [Last Commit - 25 Aug 2020](https://github.com/eugene-babichenko/rust-fsm/commit/ee6dcefeb7cc447858ad92af9824707910a02ed6)
 
 Before I get into details, I have a bone to pick with this crate,
 it is separated into two components `rust-fsm` (the library) and `rust-fsm-dsl` (the DSL),
