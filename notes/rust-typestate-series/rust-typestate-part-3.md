@@ -35,7 +35,7 @@ the macro does not expand with constraints.
 So we will have something like:
 
 ```
-( limited | struct ) ?
+( limited | strict ) ?
 ```
 
 #### Visibility
@@ -260,8 +260,8 @@ To make our states work with our bound we need to generate the new trait
 and it for each state, there is no new technique:
 
 ```
-$vis trait $trait_name {}
-$(impl $trait_name for $typestate {})+
+$vis trait $state_trait {}
+$(impl $state_trait for $typestate {})+
 ```
 
 The first line will generate our trait (e.g. `pub trait TypeBound {}`),
@@ -288,8 +288,8 @@ macro_rules! typestate {
             $($field:$field_ty,)*
         }
         $($vis struct $typestate;)+
-        $vis trait $trait_name {}
-        $(impl $trait_name for $typestate {})+
+        $vis trait $state_trait {}
+        $(impl $state_trait for $typestate {})+
     };
 }
 ```
@@ -382,7 +382,7 @@ macro_rules! typestate {
         pub trait $sealed_trait {}
             $(impl $sealed_trait for super::$typestate {})+
         }
-        $(impl $trait_name for $typestate {})+
+        $(impl $state_trait for $typestate {})+
     };
 }
 ```
