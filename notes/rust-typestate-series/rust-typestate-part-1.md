@@ -190,7 +190,7 @@ There still are some possible improvements to be made, as it stands, any type ca
 to provide more security, to avoid someone implementing `Drone<NotAState>` we can bind `State` with a `trait`:
 
 ```rust
-impl DroneState {}
+trait DroneState {}
 
 struct Drone<State> where State: DroneState { ... }
 ```
@@ -305,8 +305,8 @@ Finally, the code that creates and uses the drone will first create a `Coordinat
 
 ```rust
 fn fly_drone() {
-    let mut inner = InnerDrone::new(0.0, 0.0);
-    let drone = Drone::<Idle>::new(&mut inner)
+    let mut coordinates = Coordinates::new();
+    let drone = Drone::<Idle>::new(&mut coordinates)
         .take_off()
         .move_to(-5.0, -5.0)
         .land();
